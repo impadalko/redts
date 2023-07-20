@@ -17,6 +17,8 @@ function printVersion(): void {
   console.log(`${name} ${version}`);
 }
 
+let server: Deno.Listener;
+
 export async function main(args?: Args): Promise<void> {
   if (args?.help) {
     printHelp();
@@ -29,10 +31,22 @@ export async function main(args?: Args): Promise<void> {
   }
 
   const port = args?.p ?? 6379;
-  const server = Deno.listen({ port });
+  server = Deno.listen({ port });
   console.log(`Listening on 0.0.0.0:${port}`);
 
   for await (const conn of server) {
     conn.readable.pipeTo(conn.writable);
   }
+
+  shutdown();
+}
+
+Deno.addSignalListener("SIGINT", () => {
+  shutdown();
+  Deno.exit();
+});
+
+function shutdown(): void {
+  console.log("Closing the server.");
+  server.close();
 }
