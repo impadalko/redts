@@ -1,0 +1,9 @@
+{
+  "imports": {
+    "src/": "./src/"
+  },
+  "tasks": {
+    "compile": "deno compile --output redts-server --allow-net src/main.ts",
+    "run": "deno run --allow-net --check=all src/main.ts"
+  }
+}
