@@ -1,5 +1,7 @@
 import { Args } from "https://deno.land/std/flags/mod.ts";
 
+import ConnectionProcessor from "./connectionProcessor.ts";
+
 const name = "redts-server";
 const version = "1.0.0";
 
@@ -34,8 +36,9 @@ export async function main(args?: Args): Promise<void> {
   server = Deno.listen({ port });
   console.log(`Listening on 0.0.0.0:${port}`);
 
-  for await (const conn of server) {
-    conn.readable.pipeTo(conn.writable);
+  const connectionProcessor = new ConnectionProcessor();
+  for await (const connection of server) {
+    connectionProcessor.process(connection);
   }
 
   shutdown();

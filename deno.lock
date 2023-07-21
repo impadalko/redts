@@ -2,6 +2,7 @@
   "version": "2",
   "remote": {
     "https://deno.land/std@0.182.0/_util/asserts.ts": "178dfc49a464aee693a7e285567b3d0b555dc805ff490505a8aae34f9cfb1462",
-    "https://deno.land/std@0.182.0/flags/mod.ts": "4d829c5bd1d657799cdeb487c6e418960efc6f4d8ce6cadc38a54b9ce266160a"
+    "https://deno.land/std@0.182.0/flags/mod.ts": "4d829c5bd1d657799cdeb487c6e418960efc6f4d8ce6cadc38a54b9ce266160a",
+    "https://raw.githubusercontent.com/impadalko/redts-shared/main/src/uint8ArrayUtil.ts": "a7c732a1fbe87625c8765bc010c23ee9167f0d873fcd54842a927f805f3d2f6f"
   }
 }
