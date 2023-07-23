@@ -1,8 +1,12 @@
+import InputDecoder from "./inputDecoder.ts";
+
 class ConnectionProcessor {
+  inputDecoder: InputDecoder;
   outputEncoder: TextEncoder;
   bufferSize: number;
 
   constructor(bufferSize = 1024) {
+    this.inputDecoder = new InputDecoder();
     this.outputEncoder = new TextEncoder();
     this.bufferSize = bufferSize;
   }
@@ -23,6 +27,9 @@ class ConnectionProcessor {
         readBytes = read ?? 0;
         buffers.push(buffer);
       } while (readBytes == this.bufferSize);
+
+      const parsedInput = this.inputDecoder.decode(buffers);
+      console.log(parsedInput);
 
       await connection.write(this.outputEncoder.encode("+OK\r\n"));
     }
