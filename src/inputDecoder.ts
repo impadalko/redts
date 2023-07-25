@@ -20,7 +20,9 @@ class InputDecoder {
     // done by the redis server.
     const [tokenType, ..._] = firstToken;
     if (tokenType != 42) {
-      return this.textDecoder.decode(trimmedInput).split(" ");
+      return this.textDecoder.decode(trimmedInput)
+        .replace(/\r\n$/g, "")
+        .split(" ");
     }
 
     const output: (string | null)[] = [];

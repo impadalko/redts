@@ -15,6 +15,14 @@ describe("Input decoder", () => {
     assertEquals(decoded, ["Plain", "string", "input"]);
   });
 
+  it("should remove trailing CRLF from a malformed input", () => {
+    const decoded = inputDecoder.decode([
+      textEncoder.encode("Plain string input\r\n"),
+    ]);
+
+    assertEquals(decoded, ["Plain", "string", "input"]);
+  });
+
   it("should decode an array with a null bulk string correctly", () => {
     const decoded = inputDecoder.decode([
       textEncoder.encode("*1\r\n$-1\r\n"),
