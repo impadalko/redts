@@ -1,4 +1,5 @@
 import InputDecoder from "./inputDecoder.ts";
+import commandProcessorMap from "./commands/commandProcessorMap.ts";
 
 class ConnectionProcessor {
   inputDecoder: InputDecoder;
@@ -29,9 +30,12 @@ class ConnectionProcessor {
       } while (readBytes == this.bufferSize);
 
       const parsedInput = this.inputDecoder.decode(buffers);
-      console.log(parsedInput);
+      const [command, ...args] = parsedInput;
+      const commandProcessor = commandProcessorMap.get(command);
 
-      await connection.write(this.outputEncoder.encode("+OK\r\n"));
+      const commandOutput = commandProcessor.process(command, args);
+
+      await connection.write(this.outputEncoder.encode(commandOutput.encode()));
     }
   }
 }
