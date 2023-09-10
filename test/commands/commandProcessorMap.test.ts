@@ -11,12 +11,6 @@ describe("Command Processor Map", () => {
   const bogusCommand = "BOGUS";
   const validCommand = "PING";
 
-  it("should return unknwon processor when command is null", () => {
-    const processor = commandProcessorMap.get(null);
-
-    assertEquals(processor, unknownProcessor);
-  });
-
   it("should return unknwon processor when command is not in the map", () => {
     const processor = commandProcessorMap.get(bogusCommand);
 

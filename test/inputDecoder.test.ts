@@ -7,6 +7,12 @@ describe("Input decoder", () => {
   const textEncoder = new TextEncoder();
   const inputDecoder = new InputDecoder();
 
+  it("should decode an empty input as an empty array", () => {
+    const decoded = inputDecoder.decode([]);
+
+    assertEquals(decoded, []);
+  });
+
   it("should decode a malformed input as a plain string", () => {
     const decoded = inputDecoder.decode([
       textEncoder.encode("Plain string input"),

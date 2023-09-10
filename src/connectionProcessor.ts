@@ -31,11 +31,16 @@ class ConnectionProcessor {
 
       const parsedInput = this.inputDecoder.decode(buffers);
       const [command, ...args] = parsedInput;
-      const commandProcessor = commandProcessorMap.get(command);
 
-      const commandOutput = commandProcessor.process(command, args);
+      if (command) {
+        const commandProcessor = commandProcessorMap.get(command);
 
-      await connection.write(this.outputEncoder.encode(commandOutput.encode()));
+        const commandOutput = commandProcessor.process(command, args);
+
+        await connection.write(
+          this.outputEncoder.encode(commandOutput.encode()),
+        );
+      }
     }
   }
 }

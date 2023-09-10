@@ -6,10 +6,8 @@ const processorMap = new Map<string, Processor>();
 processorMap.set("PING", pingProcessor);
 
 const commandProcessorMap = {
-  get(command: string | null): Processor {
-    return command
-      ? processorMap.get(command.toUpperCase()) ?? unknownProcessor
-      : unknownProcessor;
+  get(command: string): Processor {
+    return processorMap.get(command.toUpperCase()) ?? unknownProcessor;
   },
 };
 

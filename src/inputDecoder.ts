@@ -13,6 +13,8 @@ class InputDecoder {
     const trimmedInput = Uint8ArrayUtil.trim(mergedInput);
     const tokens = Uint8ArrayUtil.split(trimmedInput, this.separator);
 
+    if (tokens.length === 0) return [];
+
     const [firstToken, ...command] = tokens;
 
     // The input should be an array of bulk string and thus start with a * (42) as specified by the
